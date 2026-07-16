@@ -808,5 +808,194 @@ app.use((req: Request, res: Response) => {
         path: req.originalUrl
     });
 });
+app.get('/api/v1/docs', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.send(`
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Smartford API Docs</title>
+    <style>
+        body { font-family: monospace; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        h1 { border-bottom: 2px solid #000; padding-bottom: 10px; }
+        h2 { margin-top: 30px; }
+        .endpoint { background: #f5f5f5; padding: 15px; margin: 10px 0; border-left: 4px solid #000; }
+        .method { font-weight: bold; display: inline-block; min-width: 60px; }
+        .get { color: #2b8cbe; }
+        .post { color: #2e9b2e; }
+        .put { color: #d4a017; }
+        .delete { color: #c0392b; }
+        .path { font-weight: bold; }
+        .desc { margin: 10px 0 5px 0; }
+        .code { background: #eee; padding: 2px 6px; font-family: monospace; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f5f5f5; }
+        .note { background: #fff3cd; padding: 10px; border-left: 4px solid #ffc107; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Smartford API v1</h1>
+    <p>Базовый URL: <code>/api/v1</code></p>
 
+    <h2>Аутентификация</h2>
+    <p>Большинство эндпойнтов требуют JWT токен в заголовке: <code>Authorization: Bearer &lt;token&gt;</code></p>
+
+    <div class="endpoint">
+        <div><span class="method post">POST</span> <span class="path">/auth/register</span></div>
+        <div class="desc">Регистрация нового пользователя</div>
+        <div><strong>Body:</strong></div>
+        <pre>{
+    "username": "user123",
+    "password": "pass123",
+    "name": "Иван"
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method post">POST</span> <span class="path">/auth/login</span></div>
+        <div class="desc">Вход в систему</div>
+        <div><strong>Body:</strong></div>
+        <pre>{
+    "username": "user123",
+    "password": "pass123"
+}</pre>
+        <div><strong>Ответ:</strong> возвращает <code>token</code> и данные пользователя</div>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/auth/me</span></div>
+        <div class="desc">Получить данные текущего пользователя (требуется авторизация)</div>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method put">PUT</span> <span class="path">/auth/profile</span></div>
+        <div class="desc">Обновить профиль (требуется авторизация)</div>
+        <div><strong>Body:</strong></div>
+        <pre>{
+    "name": "Новое имя",
+    "avatar_url": "https://..."
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method post">POST</span> <span class="path">/auth/avatar</span></div>
+        <div class="desc">Загрузить аватар (требуется авторизация)</div>
+        <div><strong>Body:</strong></div>
+        <pre>{
+    "image": "data:image/png;base64,...."
+}</pre>
+    </div>
+
+    <h2>Новости</h2>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/news/get</span></div>
+        <div class="desc">Получить список новостей</div>
+        <div><strong>Параметры (query):</strong></div>
+        <ul>
+            <li><code>count</code> - количество (по умолчанию 8, максимум 20)</li>
+            <li><code>sort_by</code> - <code>newest</code> или <code>oldest</code> (по умолчанию oldest)</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/news/get/:id</span></div>
+        <div class="desc">Получить новость по ID</div>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method post">POST</span> <span class="path">/news/create</span></div>
+        <div class="desc">Создать новость (только владелец)</div>
+        <div><strong>Body:</strong></div>
+        <pre>{
+    "name": "Заголовок",
+    "date": "2024-01-01",
+    "text": "Текст новости",
+    "image": "data:image/png;base64,...."
+}</pre>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method put">PUT</span> <span class="path">/news/update/:id</span></div>
+        <div class="desc">Обновить новость (только владелец)</div>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method delete">DELETE</span> <span class="path">/news/delete/:id</span></div>
+        <div class="desc">Удалить новость (только владелец)</div>
+    </div>
+
+    <h2>Файлы</h2>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/files/get</span></div>
+        <div class="desc">Получить список версий Smartford OS</div>
+        <div><strong>Параметры (query):</strong></div>
+        <ul>
+            <li><code>count</code> - количество версий</li>
+            <li><code>placeholder=true</code> - вернуть заглушки вместо реальных данных</li>
+        </ul>
+    </div>
+
+    <h2>Обои</h2>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/wallpapers/get</span></div>
+        <div class="desc">Получить список обоев</div>
+        <div><strong>Параметры (query):</strong></div>
+        <ul>
+            <li><code>count</code> - количество</li>
+        </ul>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/wallpapers/compress</span></div>
+        <div class="desc">Получить сжатое изображение обоев</div>
+        <div><strong>Параметры (query):</strong></div>
+        <ul>
+            <li><code>wallpaper</code> - <code>default</code>, <code>winter</code> или <code>classic</code></li>
+            <li><code>size</code> - размер в пикселях (по умолчанию 144, максимум 512)</li>
+        </ul>
+    </div>
+
+    <h2>AI Чат</h2>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/chat/ai/get</span></div>
+        <div class="desc">Запрос к AI через OpenRouter (является PROXY)</div>
+        <div><strong>Параметры (query):</strong></div>
+        <ul>
+            <li><code>api</code> или <code>key</code> - API ключ OpenRouter (обязательно)</li>
+            <li><code>model</code> - модель (обязательно)</li>
+            <li><code>prompt</code> - запрос пользователя (обязательно)</li>
+            <li><code>system_prompt</code> - системный промпт</li>
+            <li><code>temp</code> - температура (по умолчанию 0.7)</li>
+            <li><code>tokens</code> - максимальное количество токенов</li>
+        </ul>
+    </div>
+
+    <h2>Системные</h2>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/status</span></div>
+        <div class="desc">Проверка статуса сервера</div>
+    </div>
+
+    <div class="endpoint">
+        <div><span class="method get">GET</span> <span class="path">/version/latest</span></div>
+        <div class="desc">Получить последнюю версию Smartford OS</div>
+    </div>
+
+    <div class="note">
+        <strong>Примечание:</strong> Все эндпойнты с пометкой "только владелец" требуют аккаунт с правами владельца (is_owner = true).
+    </div>
+
+    <hr>
+    <p style="color: #666; font-size: 14px;">Smartford API v1.0.0 | 2024-2026 Smartford Company</p>
+</body>
+</html>
+    `);
+});
 export default app;
