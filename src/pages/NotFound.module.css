@@ -1,0 +1,57 @@
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 300px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.errorCode {
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  font-size: 120px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1;
+  color: var(--md-sys-color-primary);
+}
+
+.errorMessage {
+  font-size: 24px;
+  color: #e0e0e0;
+  margin: 16px 0 8px 0;
+  font-weight: 500;
+}
+
+.errorHint {
+  font-size: 16px;
+  color: #9e9e9e;
+}
+
+.errorHint a {
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+}
+
+.errorHint a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

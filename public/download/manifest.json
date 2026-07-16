@@ -1,0 +1,37 @@
+[
+  {
+    "fileName": "smosb1.2.pptm",
+    "version": "1.2",
+    "isBeta": true
+  },
+  {
+    "fileName": "smosb1.5.pptm",
+    "version": "1.5",
+    "isBeta": true
+  },
+  {
+    "fileName": "smos1.0.pptm",
+    "version": "1.0",
+    "isBeta": false
+  },
+  {
+    "fileName": "smos1.5.pptm",
+    "version": "1.5",
+    "isBeta": false
+  },
+  {
+    "fileName": "smos2.0.pptm",
+    "version": "2.0",
+    "isBeta": false
+  },
+  {
+    "fileName": "smos2.1.pptm",
+    "version": "2.1",
+    "isBeta": false
+  },
+  {
+    "fileName": "smos2.2.pptm",
+    "version": "2.2",
+    "isBeta": false
+  }
+]

@@ -1,0 +1,47 @@
+
+
+.rowWrapper {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.newsGridColumns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 0;
+}
+
+@media (max-width: 600px) {
+  .newsGridColumns {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .rowWrapper {
+    margin-bottom: 16px;
+  }
+  .containercards {
+    padding: 0 16px;
+  }
+}
+@keyframes pageSlideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+.contentAppear {
+  animation: pageSlideUp 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
