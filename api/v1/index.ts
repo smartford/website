@@ -791,23 +791,6 @@ app.get('/api/v1/wallpapers/compress', async (req: Request, res: Response) => {
 app.get('/api/v1/status', (req: Request, res: Response) => {
     res.status(200).json({ status: "online", version: "1.0.0", timestamp: new Date().toISOString() });
 });
-
-app.get('/api/v1/version/latest', (req: Request, res: Response) => {
-    res.status(200).json({
-        version: "2.2",
-        name: "SmartFord OS 2: Redesign",
-        updatedAt: new Date().toISOString()
-    });
-});
-
-app.use((req: Request, res: Response) => {
-    res.status(404).json({
-        status: 404,
-        error: "Not Found",
-        message: "Запрашиваемая функция или путь не найдены",
-        path: req.originalUrl
-    });
-});
 app.get('/api/v1/docs', (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'text/html');
     res.send(`
@@ -998,4 +981,21 @@ app.get('/api/v1/docs', (req: Request, res: Response) => {
 </html>
     `);
 });
+app.get('/api/v1/version/latest', (req: Request, res: Response) => {
+    res.status(200).json({
+        version: "2.2",
+        name: "SmartFord OS 2: Redesign",
+        updatedAt: new Date().toISOString()
+    });
+});
+
+app.use((req: Request, res: Response) => {
+    res.status(404).json({
+        status: 404,
+        error: "Not Found",
+        message: "Запрашиваемая функция или путь не найдены",
+        path: req.originalUrl
+    });
+});
+
 export default app;
