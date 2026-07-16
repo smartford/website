@@ -28,18 +28,17 @@ export const Footer: React.FC = () => {
             <div className={styles.column}>
               <h3>Сообщество</h3>
               <div className={styles.links}>
-                <M3eButton shape="rounded" variant="text" href="https://t.me/SmartfordOS" target="_blank" size="small">
+                <M3eButton shape="rounded" variant="text" href="https://t.me/smartford" target="_blank" size="small">
                   Telegram
-                </M3eButton>
-
-                <M3eButton shape="rounded" variant="text" href="https://web.telegram.org/k/#-1072147542764" target="_blank" size="small">
-                  Telegram (поддержка)
                 </M3eButton>
                 <M3eButton shape="rounded" variant="text" href="https://vk.ru/club236430266" target="_blank" size="small">
                   ВКонтакте
                 </M3eButton>
                 <M3eButton shape="rounded" variant="text" href="https://youtube.com/@SmartfordCo_official" target="_blank" size="small">
                   YouTube
+                </M3eButton>
+                <M3eButton shape="rounded" variant="text" href="https://github.com/smartford" target="_blank" size="small">
+                  GitHub
                 </M3eButton>
               </div>
             </div>
